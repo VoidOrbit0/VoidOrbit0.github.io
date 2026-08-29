@@ -3,20 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的动态背景网页</title>
+    <title>VoidOrbit0 的主页</title>
     <style>
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        html.is-programmatic-scrolling { scroll-behavior: auto; }
+
         body {
             margin: 0;
-            padding: 0;
-            background: linear-gradient(-45deg, #050816,#311b92,#006064,#12002f);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
+            color: white;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            background: #050816;
+        }
+
+        .section {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 48px 24px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-family: sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .home {
+            background: linear-gradient(-45deg, #090f28, #311b92, #006064, #12002f);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        .home::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 250, 253, 0.94),
+                #ffffff
+            );
+            opacity: var(--transition-opacity, 0);
+            transform: translateY(var(--transition-y, 32%));
+            will-change: opacity, transform;
+            pointer-events: none;
+        }
+
+        .about,
+        .projects,
+        .contact {
+            color: #172033;
+            background: linear-gradient(180deg, #ffffff, #fffafd);
+        }
+
+        .about {
+            background: linear-gradient(
+                180deg,
+                #ffffff 0%,
+                #fbfdff 34%,
+                #f4f9fc 68%,
+                #edf5f9 100%
+            );
+        }
+
+        .about-photo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+            width: 100%;
+            height: 82%;
+            object-fit: cover;
+            object-position: center 28%;
+            opacity: 0.52;
+            filter: saturate(0.92) brightness(1.05) contrast(0.96);
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.04) 8%,
+                rgba(0, 0, 0, 0.16) 16%,
+                rgba(0, 0, 0, 0.42) 27%,
+                rgba(0, 0, 0, 0.72) 39%,
+                rgba(0, 0, 0, 0.94) 52%,
+                black 62%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.04) 8%,
+                rgba(0, 0, 0, 0.16) 16%,
+                rgba(0, 0, 0, 0.42) 27%,
+                rgba(0, 0, 0, 0.72) 39%,
+                rgba(0, 0, 0, 0.94) 52%,
+                black 62%
+            );
+            pointer-events: none;
         }
 
         @keyframes gradient {
@@ -25,20 +111,301 @@
             100% { background-position: 0% 50%; }
         }
 
+        .stars {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            background: white;
+            opacity: 0;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        .petals {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .petal {
+            position: absolute;
+            top: -12%;
+            width: var(--size);
+            height: calc(var(--size) * 0.72);
+            border-radius: 70% 30% 70% 30%;
+            background: linear-gradient(135deg, #ffdce8, #f6a9c2);
+            opacity: 0;
+            filter: drop-shadow(0 3px 3px rgba(181, 97, 126, 0.12));
+            animation: petal-fall var(--duration) linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; transform: scale(0.7); }
+            50% { opacity: 1; transform: scale(1.35); }
+        }
+
+        @keyframes petal-fall {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, -10vh, 0) rotate(0deg);
+            }
+
+            12%, 88% { opacity: var(--opacity); }
+
+            100% {
+                opacity: 0;
+                transform: translate3d(var(--drift), 120vh, 0) rotate(var(--rotation));
+            }
+        }
+
         .content {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+            width: min(100%, 720px);
+            padding: clamp(30px, 6vw, 52px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.28);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .home .content {
+            z-index: 2;
+            opacity: var(--home-content-opacity, 1);
+            transform: translateY(var(--home-content-y, 0));
+            will-change: opacity, transform;
+        }
+
+        .section:not(.home) .content {
+            z-index: 2;
+            border-color: #e4e8f0;
+            background: #ffffff;
+            box-shadow: 0 18px 50px rgba(20, 31, 53, 0.1);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        h1, h2 { margin: 0 0 18px; }
+        h1 { font-size: clamp(2.4rem, 8vw, 5rem); }
+        h2 { font-size: clamp(2rem, 6vw, 3.6rem); }
+
+        p {
+            margin: 0;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.8;
+        }
+
+        .next-link {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 11px 22px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .next-link:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+        }
+
+        .section:not(.home) .next-link {
+            color: #172033;
+            border-color: #cbd3df;
+            background: #f5f7fa;
+        }
+
+        .section:not(.home) .next-link:hover {
+            background: #e9edf3;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .home, .star { animation: none; }
+            .star { opacity: 0.6; }
+            .petal { display: none; }
         }
     </style>
 </head>
 <body>
+    <section class="section home" id="home">
+        <div class="stars" aria-hidden="true"></div>
+        <div class="content">
+            <h1>VoidOrbit0</h1>
+            <p>欢迎来到我的个人主页</p>
+            <a class="next-link" href="#about">向下探索</a>
+        </div>
+    </section>
 
-    <div class="content">
-        <h1>欢迎来到 VoidOrbit0 的主页</h1>
-    </div>
+    <section class="section about" id="about">
+        <img
+            class="about-photo"
+            src="images/about-photo.jpg"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+        >
+        <div class="petals" aria-hidden="true"></div>
+    </section>
 
+    <section class="section projects" id="projects">
+        <div class="petals" aria-hidden="true"></div>
+        <div class="content">
+            <h2>我的作品</h2>
+            <p>这里可以展示你的 GitHub 项目、作品图片和项目介绍。</p>
+            <a class="next-link" href="#contact">联系我</a>
+        </div>
+    </section>
+
+    <section class="section contact" id="contact">
+        <div class="petals" aria-hidden="true"></div>
+        <div class="content">
+            <h2>联系我</h2>
+            <p>GitHub：VoidOrbit0</p>
+            <a class="next-link" href="#home">返回顶部</a>
+        </div>
+    </section>
+
+    <script>
+        const starsContainer = document.querySelector(".stars");
+        const starCount = 120;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement("span");
+            const size = Math.random() * 2.2 + 0.8;
+
+            star.className = "star";
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.setProperty("--size", `${size}px`);
+            star.style.setProperty("--duration", `${Math.random() * 3 + 2}s`);
+            star.style.setProperty("--delay", `${Math.random() * -5}s`);
+
+            starsContainer.appendChild(star);
+        }
+
+        document.querySelectorAll(".petals").forEach((petalsContainer) => {
+            const petalCount = 24;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement("span");
+                const size = Math.random() * 10 + 8;
+
+                petal.className = "petal";
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.setProperty("--size", `${size}px`);
+                petal.style.setProperty("--drift", `${Math.random() * 180 - 90}px`);
+                petal.style.setProperty("--rotation", `${Math.random() * 720 - 360}deg`);
+                petal.style.setProperty("--opacity", `${Math.random() * 0.3 + 0.35}`);
+                petal.style.setProperty("--duration", `${Math.random() * 7 + 10}s`);
+                petal.style.setProperty("--delay", `${Math.random() * -16}s`);
+
+                petalsContainer.appendChild(petal);
+            }
+        });
+
+        const homeSection = document.querySelector(".home");
+        const aboutSection = document.querySelector(".about");
+        const exploreLink = document.querySelector('.home .next-link');
+        let scrollTicking = false;
+        let isPageTransitioning = false;
+
+        function updateHomeTransition() {
+            const homeHeight = homeSection.offsetHeight;
+            const progress = Math.min(Math.max(window.scrollY / (homeHeight * 0.85), 0), 1);
+            const easedProgress = progress * progress * (3 - 2 * progress);
+
+            homeSection.style.setProperty("--transition-opacity", easedProgress.toFixed(3));
+            homeSection.style.setProperty("--transition-y", `${(1 - easedProgress) * 32}%`);
+            homeSection.style.setProperty("--home-content-opacity", `${1 - easedProgress}`);
+            homeSection.style.setProperty("--home-content-y", `${easedProgress * -24}px`);
+
+            scrollTicking = false;
+        }
+
+        window.addEventListener("scroll", () => {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(updateHomeTransition);
+                scrollTicking = true;
+            }
+        }, { passive: true });
+
+        window.addEventListener("resize", updateHomeTransition);
+        updateHomeTransition();
+
+        function animateScrollTo(targetY, duration = 700) {
+            if (isPageTransitioning) return;
+
+            const startY = window.scrollY;
+            const distance = targetY - startY;
+            const startTime = performance.now();
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            if (reduceMotion) {
+                window.scrollTo(0, targetY);
+                return;
+            }
+
+            isPageTransitioning = true;
+            document.documentElement.classList.add("is-programmatic-scrolling");
+
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = progress < 0.5
+                    ? 4 * progress * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                window.scrollTo(0, startY + distance * eased);
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    document.documentElement.classList.remove("is-programmatic-scrolling");
+                    isPageTransitioning = false;
+                }
+            }
+
+            window.requestAnimationFrame(step);
+        }
+
+        window.addEventListener("wheel", (event) => {
+            const aboutTop = aboutSection.offsetTop;
+
+            if (isPageTransitioning) {
+                event.preventDefault();
+                return;
+            }
+
+            if (event.deltaY > 0 && window.scrollY < aboutTop * 0.65) {
+                event.preventDefault();
+                animateScrollTo(aboutTop);
+            }
+        }, { passive: false });
+
+        exploreLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            animateScrollTo(aboutSection.offsetTop);
+        });
+    </script>
 </body>
 </html>
