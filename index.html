@@ -15,7 +15,7 @@
             margin: 0;
             color: white;
             font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-            background: #050816;
+            background: #081426;
         }
 
         .section {
@@ -32,7 +32,7 @@
         }
 
         .home {
-            background: linear-gradient(-45deg, #090f28, #311b92, #006064, #12002f);
+            background: linear-gradient(-45deg, #081426, #102f4a, #2f6681, #191f3c);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
         }
@@ -42,14 +42,13 @@
             position: absolute;
             inset: 0;
             z-index: 1;
-            background: linear-gradient(
-                to bottom,
-                rgba(255, 250, 253, 0.94),
-                #ffffff
-            );
+            background:
+                linear-gradient(rgba(126, 183, 216, 0.06), rgba(8, 20, 38, 0.08)),
+                url("images/about-photo.jpg") center 28% / cover no-repeat;
             opacity: var(--transition-opacity, 0);
-            transform: translateY(var(--transition-y, 32%));
-            will-change: opacity, transform;
+            transform: translateY(var(--transition-y, 18%)) scale(var(--transition-scale, 1.04));
+            filter: blur(var(--transition-blur, 6px));
+            will-change: opacity, transform, filter;
             pointer-events: none;
         }
 
@@ -57,17 +56,12 @@
         .projects,
         .contact {
             color: #172033;
-            background: linear-gradient(180deg, #ffffff, #fffafd);
+            background: linear-gradient(180deg, #ffffff, #f7fafc);
         }
 
         .about {
-            background: linear-gradient(
-                180deg,
-                #ffffff 0%,
-                #fbfdff 34%,
-                #f4f9fc 68%,
-                #edf5f9 100%
-            );
+            /* 将原本较深的 #7eb7d8 改为更清淡、更亮的浅蓝色 */
+            background: #95c8e6; 
         }
 
         .about-photo {
@@ -77,32 +71,51 @@
             left: 0;
             z-index: 0;
             width: 100%;
-            height: 82%;
+            height: 100%;
             object-fit: cover;
             object-position: center 28%;
-            opacity: 0.52;
-            filter: saturate(0.92) brightness(1.05) contrast(0.96);
-            -webkit-mask-image: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(0, 0, 0, 0.04) 8%,
-                rgba(0, 0, 0, 0.16) 16%,
-                rgba(0, 0, 0, 0.42) 27%,
-                rgba(0, 0, 0, 0.72) 39%,
-                rgba(0, 0, 0, 0.94) 52%,
-                black 62%
-            );
-            mask-image: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(0, 0, 0, 0.04) 8%,
-                rgba(0, 0, 0, 0.16) 16%,
-                rgba(0, 0, 0, 0.42) 27%,
-                rgba(0, 0, 0, 0.72) 39%,
-                rgba(0, 0, 0, 0.94) 52%,
-                black 62%
-            );
+            /* 将透明度从 0.86 降到 0.75，让底部的浅蓝色透出来 */
+            opacity: 0.75; 
+            /* 提高 brightness(亮度) 至 1.15，降低 saturate(饱和度) 至 0.85，使色彩更淡 */
+            filter: blur(var(--sky-blur, 0px)) saturate(0.85) brightness(1.15) contrast(0.95);
+            transform: scale(1.035);
+            animation: sky-drift 26s ease-in-out infinite;
+            will-change: transform, filter;
             pointer-events: none;
+        }
+
+        @keyframes sky-drift {
+            0%, 100% {
+                transform: scale(1.035) translate3d(-0.12%, 0, 0);
+            }
+
+            50% {
+                transform: scale(1.055) translate3d(0.12%, -0.4%, 0);
+            }
+        }
+
+        .about::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.24), transparent 42%),
+                linear-gradient(to bottom, rgba(247, 250, 252, 0.12), transparent 36%, rgba(8, 20, 38, 0.07));
+            background-size: 180% 180%, 100% 100%;
+            animation: sky-light 12s ease-in-out infinite;
+            will-change: background-position;
+            pointer-events: none;
+        }
+
+        @keyframes sky-light {
+            0%, 100% {
+                background-position: 0% 40%, 0 0;
+            }
+
+            50% {
+                background-position: 100% 60%, 0 0;
+            }
         }
 
         @keyframes gradient {
@@ -134,7 +147,7 @@
         .petals {
             position: absolute;
             inset: 0;
-            z-index: 0;
+            z-index: 1;
             overflow: hidden;
             pointer-events: none;
         }
@@ -145,9 +158,10 @@
             width: var(--size);
             height: calc(var(--size) * 0.72);
             border-radius: 70% 30% 70% 30%;
-            background: linear-gradient(135deg, #ffdce8, #f6a9c2);
+            z-index: var(--depth-layer);
+            background: linear-gradient(135deg, #f8dce5, #efb7c8);
             opacity: 0;
-            filter: drop-shadow(0 3px 3px rgba(181, 97, 126, 0.12));
+            filter: blur(var(--blur)) drop-shadow(0 3px 3px rgba(181, 97, 126, 0.12));
             animation: petal-fall var(--duration) linear infinite;
             animation-delay: var(--delay);
         }
@@ -193,9 +207,9 @@
 
         .section:not(.home) .content {
             z-index: 2;
-            border-color: #e4e8f0;
+            border-color: #dfe7ed;
             background: #ffffff;
-            box-shadow: 0 18px 50px rgba(20, 31, 53, 0.1);
+            box-shadow: 0 18px 50px rgba(8, 20, 38, 0.09);
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
         }
@@ -229,12 +243,12 @@
 
         .section:not(.home) .next-link {
             color: #172033;
-            border-color: #cbd3df;
-            background: #f5f7fa;
+            border-color: #cbd9e2;
+            background: #f7fafc;
         }
 
         .section:not(.home) .next-link:hover {
-            background: #e9edf3;
+            background: #eaf2f6;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -242,6 +256,7 @@
             .home, .star { animation: none; }
             .star { opacity: 0.6; }
             .petal { display: none; }
+            .about-photo, .about::after { animation: none; }
         }
     </style>
 </head>
@@ -308,15 +323,18 @@
 
             for (let i = 0; i < petalCount; i++) {
                 const petal = document.createElement("span");
-                const size = Math.random() * 10 + 8;
+                const depth = Math.random();
+                const size = 7 + depth * 12;
 
                 petal.className = "petal";
                 petal.style.left = `${Math.random() * 100}%`;
                 petal.style.setProperty("--size", `${size}px`);
                 petal.style.setProperty("--drift", `${Math.random() * 180 - 90}px`);
                 petal.style.setProperty("--rotation", `${Math.random() * 720 - 360}deg`);
-                petal.style.setProperty("--opacity", `${Math.random() * 0.3 + 0.35}`);
-                petal.style.setProperty("--duration", `${Math.random() * 7 + 10}s`);
+                petal.style.setProperty("--opacity", `${0.25 + depth * 0.45}`);
+                petal.style.setProperty("--blur", `${(1 - depth) * 1.6}px`);
+                petal.style.setProperty("--depth-layer", `${Math.ceil(depth * 3)}`);
+                petal.style.setProperty("--duration", `${16 - depth * 6}s`);
                 petal.style.setProperty("--delay", `${Math.random() * -16}s`);
 
                 petalsContainer.appendChild(petal);
@@ -335,9 +353,12 @@
             const easedProgress = progress * progress * (3 - 2 * progress);
 
             homeSection.style.setProperty("--transition-opacity", easedProgress.toFixed(3));
-            homeSection.style.setProperty("--transition-y", `${(1 - easedProgress) * 32}%`);
+            homeSection.style.setProperty("--transition-y", `${(1 - easedProgress) * 18}%`);
+            homeSection.style.setProperty("--transition-scale", `${1.04 - easedProgress * 0.02}`);
+            homeSection.style.setProperty("--transition-blur", `${(1 - easedProgress) * 6}px`);
             homeSection.style.setProperty("--home-content-opacity", `${1 - easedProgress}`);
             homeSection.style.setProperty("--home-content-y", `${easedProgress * -24}px`);
+            aboutSection.style.setProperty("--sky-blur", `${(1 - easedProgress) * 4}px`);
 
             scrollTicking = false;
         }
@@ -398,13 +419,23 @@
 
             if (event.deltaY > 0 && window.scrollY < aboutTop * 0.65) {
                 event.preventDefault();
-                animateScrollTo(aboutTop);
+                animateScrollTo(aboutTop, 760);
+                return;
+            }
+
+            if (
+                event.deltaY < 0 &&
+                window.scrollY > aboutTop * 0.55 &&
+                window.scrollY <= aboutTop + 32
+            ) {
+                event.preventDefault();
+                animateScrollTo(0, 760);
             }
         }, { passive: false });
 
         exploreLink.addEventListener("click", (event) => {
             event.preventDefault();
-            animateScrollTo(aboutSection.offsetTop);
+            animateScrollTo(aboutSection.offsetTop, 760);
         });
     </script>
 </body>
