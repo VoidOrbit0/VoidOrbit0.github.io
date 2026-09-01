@@ -304,34 +304,45 @@
             border-color: rgba(149, 200, 230, 0.8);
         }
 
-        /* 第二页：顶部导航栏样式 */
+        /* 替换原本的 .about-nav 样式，打造高级悬浮毛玻璃 */
         .about-nav {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 16px 24px;
-            background: rgba(255, 255, 255, 0.55); /* 白色半透明 */
-            backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
-            -webkit-backdrop-filter: blur(10px);
+            top: 32px; /* 距离顶部留出呼吸空间 */
+            left: 50%;
+            transform: translateX(-50%); /* 确保完美居中 */
+            padding: 14px 40px;
             display: flex;
-            justify-content: center;
-            gap: 32px;
-            z-index: 10; /* 确保在图片和花瓣的上层 */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            gap: 36px;
+            z-index: 10;
+            border-radius: 999px; /* 胶囊圆角，比直角更有质感 */
+            
+            /* 核心：玻璃渐变底色与强模糊效果 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.15));
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+            
+            /* 核心：模拟光线打在玻璃边缘的 3D 反光感 */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.8);
+            
+            /* 核心：轻微的悬浮阴影，让玻璃脱离背景 */
+            box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.12);
         }
 
         .about-nav a {
-            color: rgba(24, 68, 114, 0.9); /* 深蓝主题色文字 */
+            color: rgba(24, 68, 114, 0.95);
             text-decoration: none;
             font-size: 1.05rem;
             font-weight: 600;
-            transition: color 0.2s ease, transform 0.2s ease;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .about-nav a:hover {
-            color: #0a284b;
-            transform: translateY(-1px);
+            color: #081426;
+            /* 悬浮时增加文字发光效果，呼应玻璃主题 */
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9); 
         }
     </style>
 </head>
