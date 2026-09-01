@@ -303,6 +303,36 @@
             color: rgba(10, 40, 75, 0.95);
             border-color: rgba(149, 200, 230, 0.8);
         }
+
+        /* 第二页：顶部导航栏样式 */
+        .about-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.55); /* 白色半透明 */
+            backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            z-index: 10; /* 确保在图片和花瓣的上层 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .about-nav a {
+            color: rgba(24, 68, 114, 0.9); /* 深蓝主题色文字 */
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .about-nav a:hover {
+            color: #0a284b;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
@@ -316,6 +346,25 @@
     </section>
 
     <section class="section about" id="about">
+        
+        
+        <!-- 新增的白色半透明导航栏 -->
+        <nav class="about-nav">
+            <a href="#home">返回首页</a>
+            <a href="#about">探索指南</a>
+            <a href="#projects">项目空间</a>
+            <a href="#contact">留言板</a>
+        </nav>
+
+        <img
+            class="about-photo"
+            src="images/about-photo.jpg"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+        >
+        <!-- 下面是你原本的 petals 和 content 代码... -->
         <img
             class="about-photo"
             src="images/about-photo.jpg"
