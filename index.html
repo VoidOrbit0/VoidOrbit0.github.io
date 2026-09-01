@@ -304,44 +304,41 @@
             border-color: rgba(149, 200, 230, 0.8);
         }
 
-        /* 替换原本的 .about-nav 样式，打造高级悬浮毛玻璃 */
+        /* 替换为：通栏大横条毛玻璃导航 */
         .about-nav {
             position: absolute;
-            top: 32px; /* 距离顶部留出呼吸空间 */
-            left: 50%;
-            transform: translateX(-50%); /* 确保完美居中 */
-            padding: 14px 40px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 5%; /* 增加上下内边距，让横条更宽大厚实 */
             display: flex;
-            gap: 36px;
+            justify-content: center;
+            gap: 56px; /* 拉大文字之间的间距，避免在大横条里显得拥挤 */
             z-index: 10;
-            border-radius: 999px; /* 胶囊圆角，比直角更有质感 */
             
             /* 核心：玻璃渐变底色与强模糊效果 */
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.15));
             backdrop-filter: blur(16px) saturate(120%);
             -webkit-backdrop-filter: blur(16px) saturate(120%);
             
-            /* 核心：模拟光线打在玻璃边缘的 3D 反光感 */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-top: 1px solid rgba(255, 255, 255, 0.8);
-            border-left: 1px solid rgba(255, 255, 255, 0.8);
+            /* 核心：因为紧贴顶部，所以取消了上边框，只保留底部的切边反光和分割线 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.7);
             
-            /* 核心：轻微的悬浮阴影，让玻璃脱离背景 */
-            box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.12);
+            /* 大横条的底部弥散阴影 */
+            box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.08);
         }
 
         .about-nav a {
             color: rgba(24, 68, 114, 0.95);
             text-decoration: none;
-            font-size: 1.05rem;
+            font-size: 1.15rem; /* 字体稍微放大一点，撑起横条的体量感 */
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .about-nav a:hover {
             color: #081426;
-            /* 悬浮时增加文字发光效果，呼应玻璃主题 */
             text-shadow: 0 0 12px rgba(255, 255, 255, 0.9); 
         }
     </style>
