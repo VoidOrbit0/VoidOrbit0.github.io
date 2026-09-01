@@ -258,6 +258,51 @@
             .petal { display: none; }
             .about-photo, .about::after { animation: none; }
         }
+        /* ===== 第二页：蓝色半透明主题定制 ===== */
+        
+        /* 1. 外层面板背景改为半透明冰蓝 */
+        .about .content {
+            background: rgba(235, 248, 255, 0.45); 
+            border-color: rgba(149, 200, 230, 0.5);
+        }
+
+        /* 2. 面板大标题与副标题文字：深蓝 + 半透明 */
+        .about h2 {
+            color: rgba(24, 68, 114, 0.85); 
+        }
+        .about > .content > p {
+            color: rgba(42, 92, 138, 0.8); 
+        }
+
+        /* 3. 卡片背景与边框：进一步提高透明度，融入背景 */
+        .about .card {
+            background: rgba(255, 255, 255, 0.35); 
+            border: 1px solid rgba(149, 200, 230, 0.4);
+        }
+
+        /* 4. 卡片内的标题与正文：蓝色半透明 */
+        .about .card h3 {
+            color: rgba(24, 68, 114, 0.85); 
+        }
+        .about .card p {
+            color: rgba(48, 102, 147, 0.75); 
+        }
+
+        /* 5. 按钮样式：微透蓝底 + 深蓝文字 */
+        .about .card-link, 
+        .about .next-link {
+            color: rgba(24, 68, 114, 0.9);
+            background: rgba(149, 200, 230, 0.3);
+            border: 1px solid rgba(149, 200, 230, 0.5);
+        }
+
+        /* 6. 按钮悬停效果：加深颜色 */
+        .about .card-link:hover, 
+        .about .next-link:hover {
+            background: rgba(149, 200, 230, 0.65);
+            color: rgba(10, 40, 75, 0.95);
+            border-color: rgba(149, 200, 230, 0.8);
+        }
     </style>
 </head>
 <body>
